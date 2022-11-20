@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giải Phương Trình Bậc 2</title>
+    <link rel="stylesheet" href="./assets/main.css">
+</head>
+<body>
+    <div class="container-wrap">
+        <div class="container">
+            <h1 class="heading">Giải Phương Trình Bậc 2</h1>
+            <div class="input-wrap">
+                 <div class="form-input">
+                     <label for="">a:</label>
+                     <input type="text" class="input-a input-data">
+                 </div>
+                 <div class="form-input">
+                     <label for="">b:</label>
+                     <input type="text" class="input-b input-data">
+                 </div>
+                 <div class="form-input">
+                     <label for="">c:</label>
+                     <input type="text" class="input-c input-data">
+                 </div>
+            </div>
+            <div class="content-wrap">
+                <button class="calculating">Calculate</button>
+                <h2 class="expect">Result</h2>
+                <ul class="list-results">
+                    
+                </ul>
+            </div>
+         </div>
+    </div>
+
+
+    <script>
+        const $ = document.querySelector.bind(document)
+        const $$ = document.querySelectorAll.bind(document)
+
+        const a = $('.input-a')
+        const b = $('.input-b')
+        const c = $('.input-c')
+
+        const btnCal = $('.calculating')
+        const listResults = $('.list-results')
+
+
+        function checkInp(value)
+        {
+            if (isNaN(value)) 
+            {
+                alert("Must input numbers");
+                return false;
+            }
+        }
+
+        const app = {
+            listNghiem: [],
+            
+            render(listNghiem) {
+                const htmls = this.listNghiem.map( (item) => {
+                    return `<li class = "item-result">${item}</li>`
+                })
+                
+                listResults.innerHTML = htmls.join('')
+            },
+            handleEvent() {
+                const _this = this;
+                btnCal.onclick = function(e){
+                    _this.calculating(a,b,c)
+                    a.value = ""
+                    b.value = ""
+                    c.value = ""
+                    a.focus()
+                    _this.render()
+                    _this.listNghiem = []
+                }
+            },
+            calculating(a,b,c) {
+
+                const numberA = Number(a.value)
+                const numberB = Number(b.value)
+                const numberC = Number(c.value)
+
+                // input is numbers
+                if( checkInp(a.value) && checkInp(b.value) && checkInp(c.value) )
+                    return ;
+
+                const delta = Math.pow(numberB,2) - 4 * numberA * numberC 
+
+                // logic
+                console.log(this.listNghiem);
+                if(numberA === 0){
+
+                    if(numberB === 0){
+
+                        if(numberC === 0){
+                            console.log( this.listNghiem)
+                            this.listNghiem.push("Vô số nghiệm")
+                        }else {
+                            this.listNghiem.push("Vô nghiệm")
+                        }
+                    }
+                    else {
+                        this.listNghiem.push(-numberC/numberB)
+                    }
+                }else {
+                    if(delta > 0) {
+                        this.listNghiem.push((-numberB + Math.sqrt(delta)) / (2/numberA))
+                        this.listNghiem.push((-numberB - Math.sqrt(delta)) / (2/numberA))
+                    }
+                    else if(delta === 0 ) {
+                        this.listNghiem.push((-numberB)/ (2*numberA))
+                    }
+                    else { 
+                        this.listNghiem.push("Vô nghiệm")
+                    }
+                }
+
+            },
+            start() {
+                this.handleEvent()
+            }
+        }
+
+        app.start()
+    </script>
+</body>
+</html>
