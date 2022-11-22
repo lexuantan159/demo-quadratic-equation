@@ -61,8 +61,8 @@
             listNghiem: [],
             
             render(listNghiem) {
-                const htmls = this.listNghiem.map( (item) => {
-                    return `<li class = "item-result">${item}</li>`
+                const htmls = this.listNghiem.map( (item, index) => {
+                    return `<li class = "item-result item-result-${index}">${item}</li>`
                 })
                 
                 listResults.innerHTML = htmls.join('')
