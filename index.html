@@ -51,10 +51,11 @@
 
 
         function checkInp(value) {
-            if (isNaN(value)) {
-                return false;
-            }
-            return true;
+            return !isNaN(value)
+        }
+
+        function checkCha(value) {
+            return isNaN(value)
         }
 
         const app = {
@@ -86,7 +87,7 @@
                 const numberC = Number(c.value)
 
                 // input is numbers
-                if (!checkInp(a.value) && !checkInp(b.value) && !checkInp(c.value)) {
+                if ( checkInp(a.value) && checkInp(b.value) && checkInp(c.value) ) {
                     if (numberA === 0) {
 
                         if (numberB === 0) {
@@ -101,27 +102,26 @@
                             this.listNghiem.push(-numberC / numberB)
                         }
                     } else {
+
+                        const delta = Math.pow(numberB, 2) - 4 * numberA * numberC
                         if (delta > 0) {
                             this.listNghiem.push((-numberB + Math.sqrt(delta)) / (2 * numberA))
                             this.listNghiem.push((-numberB - Math.sqrt(delta)) / (2 * numberA))
                         }
-                        else if (delta === 0) {
-                            this.listNghiem.push((-numberB) / (2 * numberA))
+                        else if (delta == 0) {
+                            this.listNghiem.push((numberB) / (2 * numberA))
                         }
                         else {
                             this.listNghiem.push("Vô nghiệm")
                         }
                     }
                 }
-                else {
+                else if( checkCha(a.value) || checkCha(b.value) || checkCha(c.value) ) {
                     this.listNghiem.push("Giá trị nhập vào phải là số")
                 }
-
-
-                const delta = Math.pow(numberB, 2) - 4 * numberA * numberC
-
-                // logic
-
+                else {
+                    this.listNghiem.push("Phải có giá trị nhập vào")
+                }
 
             },
             start() {
