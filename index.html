@@ -85,8 +85,10 @@
                 const numberB = Number(b.value)
                 const numberC = Number(c.value)
 
+                const delta = Math.pow(numberB, 2) - 4 * numberA * numberC
+
                 // input is numbers
-                if (!checkInp(a.value) && !checkInp(b.value) && !checkInp(c.value)) {
+                if ( checkInp(a.value) && checkInp(b.value) && checkInp(c.value) ) {
                     if (numberA === 0) {
 
                         if (numberB === 0) {
@@ -105,7 +107,7 @@
                             this.listNghiem.push((-numberB + Math.sqrt(delta)) / (2 * numberA))
                             this.listNghiem.push((-numberB - Math.sqrt(delta)) / (2 * numberA))
                         }
-                        else if (delta === 0) {
+                        else if (delta == 0) {
                             this.listNghiem.push((-numberB) / (2 * numberA))
                         }
                         else {
@@ -118,7 +120,7 @@
                 }
 
 
-                const delta = Math.pow(numberB, 2) - 4 * numberA * numberC
+                
 
                 // logic
 
