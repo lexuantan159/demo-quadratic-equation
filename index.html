@@ -71,12 +71,12 @@
                 const _this = this;
                 btnCal.onclick = function(e){
                     _this.calculating(a,b,c)
-                    a.value = ""
-                    b.value = ""
-                    c.value = ""
                     a.focus()
                     _this.render()
                     _this.listNghiem = []
+                    a.value = ""
+                    b.value = ""
+                    c.value = ""
                 }
             },
             calculating(a,b,c) {
@@ -86,13 +86,15 @@
                 const numberC = Number(c.value)
 
                 // input is numbers
-                if( checkInp(a.value) && checkInp(b.value) && checkInp(c.value) )
+                if( checkInp(a.value) && checkInp(b.value) && checkInp(c.value) ) {
+                    this.listNghiem.push("Giá trị nhập vào phải là số")
                     return ;
+                }
+                    
 
-                const delta = Math.pow(numberB,2) - numberA * numberC 
+                const delta = Math.pow(numberB,2) - 4 * numberA * numberC 
 
                 // logic
-                console.log(this.listNghiem);
                 if(numberA === 0){
 
                     if(numberB === 0){
@@ -113,7 +115,7 @@
                         this.listNghiem.push((-numberB - Math.sqrt(delta)) / (2*numberA))
                     }
                     else if(delta === 0 ) {
-                        this.listNghiem.push((-numberB)/ (2*numberA))
+                        this.listNghiem.push((-numberB) / (2*numberA))
                     }
                     else { 
                         this.listNghiem.push("Vô nghiệm")
