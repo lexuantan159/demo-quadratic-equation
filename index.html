@@ -89,7 +89,7 @@
                 if( checkInp(a.value) && checkInp(b.value) && checkInp(c.value) )
                     return ;
 
-                const delta = Math.pow(numberB,2) - 4 * numberA * numberC 
+                const delta = Math.pow(numberB,2) - numberA * numberC 
 
                 // logic
                 console.log(this.listNghiem);
@@ -109,8 +109,8 @@
                     }
                 }else {
                     if(delta > 0) {
-                        this.listNghiem.push((-numberB + Math.sqrt(delta)) / (2/numberA))
-                        this.listNghiem.push((-numberB - Math.sqrt(delta)) / (2/numberA))
+                        this.listNghiem.push((-numberB + Math.sqrt(delta)) / (2*numberA))
+                        this.listNghiem.push((-numberB - Math.sqrt(delta)) / (2*numberA))
                     }
                     else if(delta === 0 ) {
                         this.listNghiem.push((-numberB)/ (2*numberA))
