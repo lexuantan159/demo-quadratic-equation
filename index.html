@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,32 +8,33 @@
     <title>Giải Phương Trình Bậc 2</title>
     <link rel="stylesheet" href="./assets/main.css">
 </head>
+
 <body>
     <div class="container-wrap">
         <div class="container">
             <h1 class="heading">Giải Phương Trình Bậc 2</h1>
             <div class="input-wrap">
-                 <div class="form-input">
-                     <label for="">a:</label>
-                     <input type="text" class="input-a input-data">
-                 </div>
-                 <div class="form-input">
-                     <label for="">b:</label>
-                     <input type="text" class="input-b input-data">
-                 </div>
-                 <div class="form-input">
-                     <label for="">c:</label>
-                     <input type="text" class="input-c input-data">
-                 </div>
+                <div class="form-input">
+                    <label for="">a:</label>
+                    <input type="text" class="input-a input-data">
+                </div>
+                <div class="form-input">
+                    <label for="">b:</label>
+                    <input type="text" class="input-b input-data">
+                </div>
+                <div class="form-input">
+                    <label for="">c:</label>
+                    <input type="text" class="input-c input-data">
+                </div>
             </div>
             <div class="content-wrap">
                 <button class="calculating">Calculate</button>
                 <h2 class="expect">Result</h2>
                 <ul class="list-results">
-                    
+
                 </ul>
             </div>
-         </div>
+        </div>
     </div>
 
 
@@ -48,77 +50,78 @@
         const listResults = $('.list-results')
 
 
-        function checkInp(value)
-        {
-            if (isNaN(value)) 
-            {
-                alert("Must input numbers");
+        function checkInp(value) {
+            if (isNaN(value)) {
                 return false;
             }
+            return true;
         }
 
         const app = {
             listNghiem: [],
-            
+
             render(listNghiem) {
-                const htmls = this.listNghiem.map( (item, index) => {
+                const htmls = this.listNghiem.map((item, index) => {
                     return `<li class = "item-result item-result-${index}">${item}</li>`
                 })
-                
+
                 listResults.innerHTML = htmls.join('')
             },
             handleEvent() {
                 const _this = this;
-                btnCal.onclick = function(e){
-                    _this.calculating(a,b,c)
-                    a.value = ""
-                    b.value = ""
-                    c.value = ""
+                btnCal.onclick = function (e) {
+                    _this.calculating(a, b, c)
                     a.focus()
                     _this.render()
                     _this.listNghiem = []
+                    a.value = ""
+                    b.value = ""
+                    c.value = ""
                 }
             },
-            calculating(a,b,c) {
+            calculating(a, b, c) {
 
                 const numberA = Number(a.value)
                 const numberB = Number(b.value)
                 const numberC = Number(c.value)
 
                 // input is numbers
-                if( checkInp(a.value) && checkInp(b.value) && checkInp(c.value) )
-                    return ;
+                if (!checkInp(a.value) && !checkInp(b.value) && !checkInp(c.value)) {
+                    if (numberA === 0) {
 
-                const delta = Math.pow(numberB,2) - numberA * numberC 
+                        if (numberB === 0) {
 
-                // logic
-                console.log(this.listNghiem);
-                if(numberA === 0){
-
-                    if(numberB === 0){
-
-                        if(numberC === 0){
-                            console.log( this.listNghiem)
-                            this.listNghiem.push("Vô số nghiệm")
-                        }else {
+                            if (numberC === 0) {
+                                this.listNghiem.push("Vô số nghiệm")
+                            } else {
+                                this.listNghiem.push("Vô nghiệm")
+                            }
+                        }
+                        else {
+                            this.listNghiem.push(-numberC / numberB)
+                        }
+                    } else {
+                        if (delta > 0) {
+                            this.listNghiem.push((-numberB + Math.sqrt(delta)) / (2 * numberA))
+                            this.listNghiem.push((-numberB - Math.sqrt(delta)) / (2 * numberA))
+                        }
+                        else if (delta === 0) {
+                            this.listNghiem.push((-numberB) / (2 * numberA))
+                        }
+                        else {
                             this.listNghiem.push("Vô nghiệm")
                         }
                     }
-                    else {
-                        this.listNghiem.push(-numberC/numberB)
-                    }
-                }else {
-                    if(delta > 0) {
-                        this.listNghiem.push((-numberB + Math.sqrt(delta)) / (2*numberA))
-                        this.listNghiem.push((-numberB - Math.sqrt(delta)) / (2*numberA))
-                    }
-                    else if(delta === 0 ) {
-                        this.listNghiem.push((-numberB)/ (2*numberA))
-                    }
-                    else { 
-                        this.listNghiem.push("Vô nghiệm")
-                    }
                 }
+                else {
+                    this.listNghiem.push("Giá trị nhập vào phải là số")
+                }
+
+
+                const delta = Math.pow(numberB, 2) - 4 * numberA * numberC
+
+                // logic
+
 
             },
             start() {
@@ -129,4 +132,5 @@
         app.start()
     </script>
 </body>
+
 </html>
